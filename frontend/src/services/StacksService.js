@@ -76,7 +76,63 @@ export const StacksService = {
     await makeContractCall(options);
   },
   
-  // Additional contract interaction methods
+  // Bidding functions
+  submitBid: async (jobId, amount, proposalData) => {
+    // First save proposal details to Gaia
+    const proposalUrl = await storage.putFile(
+      `proposals/job-${jobId}.json`, 
+      JSON.stringify(proposalData)
+    );
+    
+    // Then submit bid to contract
+    const functionArgs = [
+      jobId,
+      amount,
+      proposalUrl
+    ];
+    
+    const options = {
+      contractAddress: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
+      contractName: 'bidding',
+      functionName: 'submit-bid',
+      functionArgs,
+      network,
+      appDetails: {
+        name: 'Stacks Freelancer Marketplace',
+        icon: '/logo.svg',
+      },
+      onFinish: data => {
+        console.log('Bid submitted, transaction ID:', data.txId);
+      }
+    };
+    
+    return await makeContractCall(options);
+  },
+  
+  acceptBid: async (jobId, freelancerAddress) => {
+    // Implementation for accepting a bid
+    const functionArgs = [
+      jobId,
+      freelancerAddress
+    ];
+    
+    const options = {
+      contractAddress: 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM',
+      contractName: 'bidding',
+      functionName: 'accept-bid',
+      functionArgs,
+      network,
+      appDetails: {
+        name: 'Stacks Freelancer Marketplace',
+        icon: '/logo.svg',
+      },
+      onFinish: data => {
+        console.log('Bid accepted, transaction ID:', data.txId);
+      }
+    };
+    
+    return await makeContractCall(options);
+  }
 };
 
 export default StacksService;
