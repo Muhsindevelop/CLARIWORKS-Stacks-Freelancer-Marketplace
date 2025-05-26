@@ -1,0 +1,17 @@
+stacks-freelancer-marketplace/
+├── contracts/                # Clarity smart contracts
+│   ├── user-registry.clar    # User profiles and authentication
+│   ├── job-registry.clar     # Job listings management
+│   ├── bidding.clar          # Bid submission and acceptance
+│   ├── escrow.clar           # Payment handling and disputes
+│   ├── nft-minting.clar      # NFT creation for deliverables
+│   └── governance.clar       # Voting and platform rules
+├── frontend/                 # React.js application
+│   ├── src/
+│   │   ├── components/       # UI components
+│   │   ├── pages/            # Application pages
+│   │   ├── services/         # API and blockchain services
+│   │   └── utils/            # Helper functions
+│   └── public/
+├── tests/                    # Clarinet test files
+└── docs/                     # Documentation
